@@ -11,24 +11,20 @@ class DetalheActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhe)
 
-        val img = findViewById<ImageView>(R.id.imgDetalhe)
-        val nome = findViewById<TextView>(R.id.txtNomeDetalhe)
-        val telefone = findViewById<TextView>(R.id.txtTelefoneDetalhe)
-        val email = findViewById<TextView>(R.id.txtEmailDetalhe)
-        val btnVoltar = findViewById<Button>(R.id.btnVoltar)
-
-        // Recuperar o objeto enviado (Casting para o tipo Contacto)
+        // Recuperar o objeto Contacto enviado pela MainActivity
         val contacto = intent.getSerializableExtra("CONTACTO_OBJ") as? Contacto
 
+        // Se o contacto existir, preenche os campos do layout
         if (contacto != null) {
-            nome.text = contacto.nome
-            telefone.text = "📞 Telefone: ${contacto.telefone}"
-            email.text = "✉️ Email: ${contacto.email}"
-            img.setImageResource(contacto.imagemResId)
+            findViewById<TextView>(R.id.txtNomeDetalhe).text = contacto.nome
+            findViewById<TextView>(R.id.txtTelefoneDetalhe).text = "📞 Telefone: ${contacto.telefone}"
+            findViewById<TextView>(R.id.txtEmailDetalhe).text = "✉️ Email: ${contacto.email}"
+            findViewById<ImageView>(R.id.imgDetalhe).setImageResource(contacto.imagemResId)
         }
 
-        btnVoltar.setOnClickListener {
-            finish() // Fecha este ecrã e volta para a lista
+        // Botão para voltar à lista
+        findViewById<Button>(R.id.btnVoltar).setOnClickListener {
+            finish()
         }
     }
 }
