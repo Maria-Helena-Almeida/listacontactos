@@ -19,16 +19,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ContactoAdapter
 
     // NOVO: Este objeto escuta o resultado da EditorActivity
-    private val editorLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val novo = result.data?.getSerializableExtra("NOVO_CONTACTO") as? Contacto
-            if (novo != null) {
-                listaDeContactos.add(novo)
-                adapter.notifyDataSetChanged() // Atualiza a lista no ecrã
+   private val editorLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    if (result.resultCode == Activity.RESULT_OK) {
+        val contactoRetornado = result.data?.getSerializableExtra("NOVO_CONTACTO") as? Contacto
+        val posicao = result.data?.getIntExtra("POSICAO", -1) ?: -1
+
+        if (contactoRetornado != null) {
+            if (posicao != -1) {
+                // É uma EDIÇÃO: substitui na posição antiga
+                listaDeContactos[posicao] = contactoRetornado
+                Toast.makeText(this, "Contacto atualizado!", Toast.LENGTH_SHORT).show()
+            } else {
+                // É um NOVO: adiciona ao fim
+                listaDeContactos.add(contactoRetornado)
                 Toast.makeText(this, "Contacto adicionado!", Toast.LENGTH_SHORT).show()
             }
+            adapter.notifyDataSetChanged()
         }
     }
+}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,21 +82,24 @@ class MainActivity : AppCompatActivity() {
 
     // Lógica do menu de contexto
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
-        val posicao = info.position
+    val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+    val posicao = info.position
+    val contactoSelecionado = listaDeContactos[posicao]
 
-        when (item.title) {
-            "Eliminar" -> {
-                listaDeContactos.removeAt(posicao)
-                adapter.notifyDataSetChanged()
-                Toast.makeText(this, "Removido!", Toast.LENGTH_SHORT).show()
-            }
-            "Editar" -> {
-                // Para cumprir o requisito de edição de forma simples:
-                Toast.makeText(this, "A editar: ${listaDeContactos[posicao].nome}", Toast.LENGTH_SHORT).show()
-                // Nota: Num cenário real, abriríamos o EditorActivity com os dados atuais.
-            }
+    when (item.title) {
+        "Eliminar" -> {
+            listaDeContactos.removeAt(posicao)
+            adapter.notifyDataSetChanged()
+            Toast.makeText(this, "Removido!", Toast.LENGTH_SHORT).show()
         }
-        return true
+        "Editar" -> {
+            // AGORA: Abre o Editor passando o contacto e a posição dele
+            val intent = Intent(this, EditorActivity::class.java)
+            intent.putExtra("CONTACTO_EDITAR", contactoSelecionado)
+            intent.putExtra("POSICAO", posicao)
+            editorLauncher.launch(intent) 
+        }
     }
+    return true
+}
 }

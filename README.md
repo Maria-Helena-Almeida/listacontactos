@@ -1,6 +1,12 @@
 📇 Lista de Contactos - Android Kotlin
 Esta aplicação Android foi desenvolvida para o Exercício 5 da unidade curricular UC00609. O foco principal é a gestão de uma lista dinâmica de contactos utilizando uma arquitetura baseada em objetos e navegação entre múltiplas janelas.
 
+🧩 Extensões Recomendadas (VS Code)
+Para uma melhor experiência de desenvolvimento, este repositório inclui um ficheiro `extensions.json` que sugere:
+- Kotlin (fwcd.kotlin)
+- Android iOS Emulator (adpyke) para gestão visual do dispositivo.
+- Gradle for Java para execução de tarefas facilitada.
+
 🚀 Funcionalidades Implementadas
 📋 Visualização Dinâmica (ListView)
 Custom Adapter: Implementação de um adaptador personalizado (ContactoAdapter) para exibir fotos, nomes e telefones numa lista elegante.
@@ -11,6 +17,8 @@ Splash Screen: Ecrã de boas-vindas com temporizador de 3 segundos antes de carr
 Adicionar: Ecrã de formulário (EditorActivity) para inserir novos nomes, telefones e emails.
 
 Consultar (Resumo): Ao clicar num contacto, abre-se um ecrã de detalhes (DetalheActivity) com a informação completa (Figura 2 do enunciado).
+
+Editar: Clique longo num contacto permite abrir o formulário com os dados preenchidos para atualização imediata na lista.
 
 Eliminar: Funcionalidade de remoção de contactos através de um clique longo (Long Press) em qualquer item da lista.
 
