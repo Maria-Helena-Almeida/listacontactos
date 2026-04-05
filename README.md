@@ -14,7 +14,7 @@ Molde profissional para desenvolvimento Android no VS Code, sem necessidade de a
 ./gradlew clean installDebug
 
 # 4. Abrir app
-adb shell am start -n com.minha.baseapp/.MainActivity
+adb shell am start -n com.mh.listacontactos/.MainActivity
 ```
 
 ---
@@ -303,7 +303,7 @@ rd /s /q app/build
 ## 🏃 Passo 4: Rodar App
 
 ```powershell
-adb shell am start -n com.minha.baseapp/.MainActivity
+adb shell am start -n com.mh.listacontactos/.MainActivity
 ```
 
 ---
@@ -333,7 +333,7 @@ applicationId = "com.SEUNOME.appnome"
 ### 🔄 Substituição global
 
 ```
-com.minha.baseapp → com.SEUNOME.appnome
+com.mh.listacontactos → com.SEUNOME.appnome
 ```
 
 Atalho:

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.minha.baseapp"
+    namespace = "com.mh.listacontactos"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.minha.baseapp"
+        applicationId = "com.mh.listacontactos"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
